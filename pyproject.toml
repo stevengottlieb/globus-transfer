@@ -1,0 +1,67 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "globus-transfer"
+version = "0.1.0"
+description = "A command-line utility for managing Globus transfers."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [
+  { name = "Steven Gottlieb" }
+]
+keywords = ["globus", "transfer", "cli"]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+  "globus-sdk>=3.51.0",
+  "platformdirs>=4.3.0",
+  "rich>=13.9.0",
+  "typer>=0.15.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "build>=1.2.0",
+  "mypy>=1.13.0",
+  "pytest>=8.3.0",
+  "ruff>=0.8.0",
+]
+
+[project.scripts]
+gtransfer = "globus_transfer.cli:app"
+
+[project.urls]
+Homepage = "https://github.com/stevengottlieb/globus-transfer"
+Repository = "https://github.com/stevengottlieb/globus-transfer"
+Issues = "https://github.com/stevengottlieb/globus-transfer/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/globus_transfer"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["B", "C4", "E", "F", "I", "N", "UP", "W"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["globus_transfer"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]
